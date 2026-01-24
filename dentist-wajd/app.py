@@ -17,8 +17,6 @@ load_dotenv()
 
 # تهيئة تطبيق Flask
 app = Flask(__name__)
-with app.app_context():
-    init_db()
 app.secret_key = os.environ.get('SECRET_KEY', 'dentiste_smile_secret_key_2024_secure_123')
 app.config['ADMIN_USERNAME'] = os.environ.get('ADMIN_USERNAME', 'admin')
 app.config['ADMIN_PASSWORD'] = os.environ.get('ADMIN_PASSWORD', 'admin123')
@@ -521,7 +519,10 @@ def create_templates():
 if __name__ == '__main__':
     # تهيئة قاعدة البيانات
     init_db()
-    
+
+    create_templates()
+    app.run(debug=True)
+
     # إنشاء صفحات الأخطاء إذا لزم الأمر
     create_templates()
     
@@ -537,3 +538,4 @@ if __name__ == '__main__':
     # تشغيل التطبيق
 
     app.run(debug=True, host='0.0.0.0', port=5000)
+
