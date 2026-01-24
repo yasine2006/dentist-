@@ -17,12 +17,15 @@ load_dotenv()
 
 # تهيئة تطبيق Flask
 app = Flask(__name__)
+with app.app_context():
+    init_db()
 app.secret_key = os.environ.get('SECRET_KEY', 'dentiste_smile_secret_key_2024_secure_123')
 app.config['ADMIN_USERNAME'] = os.environ.get('ADMIN_USERNAME', 'admin')
 app.config['ADMIN_PASSWORD'] = os.environ.get('ADMIN_PASSWORD', 'admin123')
 
 # اسم ملف قاعدة البيانات
-DATABASE = 'dentist.db'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE = os.path.join(BASE_DIR, 'dentist.db')
 
 # ========== دوال قاعدة البيانات SQLite ==========
 
@@ -532,4 +535,5 @@ if __name__ == '__main__':
     print("=" * 60)
     
     # تشغيل التطبيق
+
     app.run(debug=True, host='0.0.0.0', port=5000)
